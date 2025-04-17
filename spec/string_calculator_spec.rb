@@ -8,5 +8,12 @@ RSpec.describe StringCalculator do
         expect(calculator.add('')).to eq(0)
       end
     end
+
+    context 'with a single number' do
+      it 'returns the number itself' do
+        calculator = StringCalculator.new
+        expect(calculator.add('1')).to eq(1)
+      end
+    end
   end
 end
