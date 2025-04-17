@@ -3,9 +3,9 @@ class StringCalculator
     return 0 if numbers.empty?
 
     if numbers.start_with?("//")
-      delimiter = numbers[2]
-      numbers = numbers.split("\n", 2)[1]
-      numbers = numbers.gsub(delimiter, ",")
+      delimiter_spec, numbers_part = numbers.split("\n", 2)
+      delimiter = delimiter_spec[2..-1]
+      numbers = numbers_part.gsub(delimiter, ",")
     end
     
     numbers.gsub("\n", ",").split(',').map(&:to_i).sum
