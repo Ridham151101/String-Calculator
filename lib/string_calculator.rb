@@ -1,13 +1,27 @@
 class StringCalculator
   def add(numbers)
     return 0 if numbers.empty?
-
-    if numbers.start_with?("//")
-      delimiter_spec, numbers_part = numbers.split("\n", 2)
+    
+    delimiter, numbers_to_parse = extract_delimiter_and_numbers(numbers)
+    numbers_array = parse_numbers(numbers_to_parse, delimiter)
+    
+    numbers_array.sum
+  end
+  
+  private
+  
+  def extract_delimiter_and_numbers(input)
+    if input.start_with?("//")
+      delimiter_spec, numbers_part = input.split("\n", 2)
       delimiter = delimiter_spec[2..-1]
-      numbers = numbers_part.gsub(delimiter, ",")
+      return delimiter, numbers_part
     end
     
-    numbers.gsub("\n", ",").split(',').map(&:to_i).sum
+    return ",", input
+  end
+  
+  def parse_numbers(numbers_string, delimiter)
+    normalized_input = numbers_string.gsub("\n", delimiter)
+    normalized_input.split(delimiter).map(&:to_i)
   end
 end
