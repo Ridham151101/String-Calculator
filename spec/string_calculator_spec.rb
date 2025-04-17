@@ -39,5 +39,19 @@ RSpec.describe StringCalculator do
         expect(calculator.add("//;\n1;2")).to eq(3)
       end
     end
+
+    context 'with advanced delimiter formats' do
+      it 'handles multiple character delimiters like "//;;;\n1;;;2"' do
+        expect(calculator.add("//;:;:\n1;:;:2")).to eq(3)
+      end
+      
+      it 'handles delimiters with brackets like "//[***]\n1***2***3"' do
+        expect(calculator.add("//*#*#\n6*#*#2*#*#3")).to eq(11)
+      end
+      
+      it 'handles special regex characters in delimiters' do
+        expect(calculator.add("//.:.:\n1.:.:3.:.:3")).to eq(7)
+      end
+    end
   end
 end
